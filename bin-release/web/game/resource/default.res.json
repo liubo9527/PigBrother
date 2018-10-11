@@ -1,0 +1,85 @@
+{
+	"groups": [
+		{
+			"keys": "ballute_blue_png,bullte_green_png,bullte_orange_png,bullte_purple_png,bullute_red_png,button_png,role_png,bg_png,cloud_png,enemy_png,step1_png,step2_png,water_png,circle_png,ball_png",
+			"name": "preload"
+		}
+	],
+	"resources": [
+		{
+			"url": "assets/ballute_blue.png",
+			"type": "image",
+			"name": "ballute_blue_png"
+		},
+		{
+			"url": "assets/bullte_green.png",
+			"type": "image",
+			"name": "bullte_green_png"
+		},
+		{
+			"url": "assets/bullte_orange.png",
+			"type": "image",
+			"name": "bullte_orange_png"
+		},
+		{
+			"url": "assets/bullte_purple.png",
+			"type": "image",
+			"name": "bullte_purple_png"
+		},
+		{
+			"url": "assets/bullute_red.png",
+			"type": "image",
+			"name": "bullute_red_png"
+		},
+		{
+			"url": "assets/button.png",
+			"type": "image",
+			"name": "button_png"
+		},
+		{
+			"url": "assets/role.png",
+			"type": "image",
+			"name": "role_png"
+		},
+		{
+			"url": "assets/bg.png",
+			"type": "image",
+			"name": "bg_png"
+		},
+		{
+			"url": "assets/cloud.png",
+			"type": "image",
+			"name": "cloud_png"
+		},
+		{
+			"url": "assets/enemy.png",
+			"type": "image",
+			"name": "enemy_png"
+		},
+		{
+			"url": "assets/step1.png",
+			"type": "image",
+			"name": "step1_png"
+		},
+		{
+			"url": "assets/step2.png",
+			"type": "image",
+			"name": "step2_png"
+		},
+		{
+			"url": "assets/water.png",
+			"type": "image",
+			"name": "water_png"
+		},
+		{
+			"url": "assets/circle.png",
+			"type": "image",
+			"name": "circle_png"
+		},
+		{
+			"url": "assets/ball.png",
+			"type": "image",
+			"name": "ball_png"
+		}
+	]
+}
