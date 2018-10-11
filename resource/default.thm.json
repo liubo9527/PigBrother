@@ -3,7 +3,7 @@
 	"autoGenerateExmlsList": true,
 	"exmls": [
 		"resource/mySkins/gameComponent.exml",
-		"resource/mySkins/VirtualJoystickSkin.exml"
+		"resource/mySkins/wof.exml"
 	],
 	"path": "resource/default.thm.json"
 }
