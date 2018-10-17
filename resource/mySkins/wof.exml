@@ -1,3 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="wof" width="400" height="300" xmlns:e="http://ns.egret.com/eui">
+<e:Skin class="wof" width="150" height="150" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="walk" source="wolf1_png" x="0" y="74" locked="true" visible="false"/>
+	<e:Group width="150" height="150" x="0" y="0">
+		<e:Image source="wolf_png" x="0" y="74" scaleX="1" scaleY="1"/>
+		<e:Image id="ballute" source="ballute_png" x="48" y="22" scaleX="1" scaleY="1"/>
+	</e:Group>
 </e:Skin>
