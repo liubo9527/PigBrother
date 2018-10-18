@@ -1,5 +1,6 @@
 class Pig extends eui.Component{
 	gameControl:Game;
+	arrowContainer = [];//猪的弓箭
 	public constructor() {
 		super();	
 	}
@@ -28,4 +29,9 @@ class Pig extends eui.Component{
 			this.y = 80;
 		}
 	}
+
+	private attack(){
+
+	}
+
 }
