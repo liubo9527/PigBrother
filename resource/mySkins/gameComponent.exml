@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<e:Skin class="gameComponent" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*">
-	<e:Image x="0" y="0" fillMode="repeat" width="1334" height="750" source="background_png"/>
+<e:Skin class="gameComponent" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*">
+	<e:Image x="0" y="0" fillMode="repeat" width="1334" height="750" source="background_png" locked="true"/>
 
-	<e:Group id="bgGroup" width="1334" height="750" x="0" y="0">
-		<e:Image id="pig" x="964.34" y="83.35" scaleX="1" scaleY="1" source="pig_png"/>
-		<e:Image id="pigString" source="string_png" x="1069.33" y="65.35"/>
+	<e:Group id="collisionGroup" width="1334" height="750" x="0" y="0">
+		<e:Image id="pigString" source="string_png" x="1069.33" y="65.35" fillMode="repeat"/>
+		<ns1:Pig id="pig" x="964.11" y="77.35" skinName="pig" enabled="true"/>
+
+
 
 png"/>
 	</e:Group>

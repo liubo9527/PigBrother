@@ -12,7 +12,7 @@ var Wof = (function (_super) {
     __extends(Wof, _super);
     function Wof(type) {
         var _this = _super.call(this) || this;
-        _this.skinName = "gameComponent";
+        _this.skinName = "wof";
         _this.type = type;
         return _this;
     }
@@ -24,13 +24,11 @@ var Wof = (function (_super) {
         this.state = state;
         if (this.state == 0) {
             this.walk.visible = true;
-            this.ballute.visible = false;
-            this.fly.visible = false;
+            this.group.visible = false;
         }
         else if (this.state == 1) {
             this.walk.visible = false;
-            this.ballute.visible = true;
-            this.fly.visible = true;
+            this.group.visible = true;
         }
     };
     return Wof;
