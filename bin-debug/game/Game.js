@@ -17,6 +17,17 @@ var Game = (function (_super) {
     }
     Game.prototype.childrenCreated = function () {
         _super.prototype.childrenCreated.call(this);
+        this.gameInit();
+    };
+    Game.prototype.gameInit = function () {
+        this.pig.setGameControl(this);
+        var wof = new Wof(0);
+        this.collisionGroup.addChild(wof);
+    };
+    //更新绳子的长度
+    Game.prototype.updateString = function () {
+        var length = this.pig.y - this.pigString.y;
+        this.pigString.height = length + 10;
     };
     Game.prototype.playAnimation = function (target, isLoop) {
         if (isLoop) {
