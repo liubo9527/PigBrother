@@ -10,22 +10,28 @@ r.prototype = e.prototype, t.prototype = new r();
 };
 var Wof = (function (_super) {
     __extends(Wof, _super);
-    function Wof(type) {
+    function Wof(type, array) {
         var _this = _super.call(this) || this;
-        _this.wofSpeed = 3;
+        _this.walkSpeed = 2;
+        _this.flySpeed = 1;
         _this.skinName = "wof";
         _this.type = type;
-        _this.setState(0);
+        array.push(_this);
+        _this.allWofs = array;
         return _this;
     }
     Wof.prototype.childrenCreated = function () {
         _super.prototype.childrenCreated.call(this);
-        this.setState(0);
+        this.setWofState(1);
         this.x = -100;
         this.y = -60;
-        this.autoMove();
+        this.x = this.y = 300;
+        //this.autoMove();
     };
-    Wof.prototype.setState = function (state) {
+    Wof.prototype.setWofState = function (state) {
+        if (state == this.stage) {
+            return;
+        }
         this.state = state;
         if (this.state == 0) {
             this.walk.visible = true;
@@ -35,18 +41,33 @@ var Wof = (function (_super) {
             this.walk.visible = false;
             this.flyGroup.visible = true;
         }
-        this.autoMove();
     };
     Wof.prototype.autoMove = function () {
-        var _this = this;
-        var randomLength = Math.floor(Math.random() * 600) + 128;
-        egret.Tween.get(this).to({ x: randomLength }, 3000).call(function () {
-            _this.setState(1);
-            egret.startTick(_this.start, _this);
-        });
+        this.randomLength = Math.floor(Math.random() * 600) + 128;
+        egret.startTick(this.start, this);
     };
     Wof.prototype.start = function (dt) {
-        this.y += this.wofSpeed;
+        if (this.y == -60) {
+            this.x += this.walkSpeed;
+            if (this.x >= this.randomLength) {
+                this.y += this.flySpeed;
+            }
+        }
+        else if (this.y > -60 && this.y < 590) {
+            this.setWofState(1);
+            this.y += this.flySpeed;
+        }
+        else if (this.y >= 590) {
+            this.setWofState(0);
+            this.x += this.walkSpeed;
+            if (this.x > 1400) {
+                var findIndex = this.allWofs.indexOf(this);
+                this.allWofs.splice(findIndex, 1);
+                if (this.parent) {
+                    this.parent.removeChild(this);
+                }
+            }
+        }
         return false;
     };
     return Wof;

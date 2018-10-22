@@ -2,6 +2,7 @@ class Game extends eui.Component {
 	collisionGroup:eui.Group;//碰撞层活动层
 	pig:Pig;
 	pigString:eui.Image;
+	wofsArray = [];//所有的狼
 	public constructor() {
 		super();
 		this.skinName = "gameComponent";
@@ -13,8 +14,11 @@ class Game extends eui.Component {
 
 	gameInit(){
 		this.pig.setGameControl(this);
-		var wof:Wof = new Wof(0);
+		var wof:Wof = new Wof(0, this.wofsArray);
 		this.collisionGroup.addChild(wof);
+
+		//
+		egret.startTick(this.startTic, this)
 	}
 	//更新绳子的长度
 	updateString(){
@@ -22,17 +26,12 @@ class Game extends eui.Component {
 		this.pigString.height = length + 10;
 	}
 
-	
- 	playAnimation(target:egret.tween.TweenGroup,isLoop:boolean):void
-	{
-		if(isLoop)
-		{
-			for(var key in target.items)
-			{
-				target.items[key].props = {loop:true};
-			}
-		}
-		target.play();
+	//碰撞检测
+	startTic(dt){
+		this.wofsArray.forEach(element => {
+			this.pig.hitWofTest(element);
+		});
+
+		return false;
 	}
-	
 }

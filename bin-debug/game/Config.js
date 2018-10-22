@@ -1,4 +1,4 @@
 var config = {
-    gameGroup: {}
+    gameGroup: {},
 };
 //# sourceMappingURL=Config.js.map

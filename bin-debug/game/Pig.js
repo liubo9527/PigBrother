@@ -82,6 +82,14 @@ var Pig = (function (_super) {
         });
         return false;
     };
+    Pig.prototype.hitWofTest = function (wof) {
+        this.arrowContainer.forEach(function (element) {
+            var arrow = element;
+            var point = wof.ballute.globalToLocal(arrow.x, arrow.y);
+            var flag = wof.ballute.hitTestPoint(point.x, point.y);
+            console.log(flag + "x:" + point.x + "y:" + point.y);
+        });
+    };
     return Pig;
 }(eui.Component));
 __reflect(Pig.prototype, "Pig");

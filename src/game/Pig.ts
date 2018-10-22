@@ -78,4 +78,13 @@ class Pig extends eui.Component{
 		return false;
 	}
 
+	hitWofTest(wof:Wof){
+		this.arrowContainer.forEach(element => {
+			var arrow:egret.Bitmap = element;
+			var point:egret.Point = wof.ballute.globalToLocal(arrow.x,  arrow.y);
+			var flag = wof.ballute.hitTestPoint(point.x, point.y);
+			console.log(flag+"x:"+point.x+"y:"+point.y);
+		});
+	}
+
 }
