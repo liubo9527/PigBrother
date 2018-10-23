@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="gameComponent" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*">
 	<e:Image x="0" y="0" fillMode="repeat" width="1334" height="750" source="background_png" locked="true"/>
-
-	<e:Group id="collisionGroup" width="1334" height="750" x="0" y="0">
-		<e:Image id="pigString" source="string_png" x="1069.33" y="65.35" fillMode="repeat"/>
-		<ns1:Pig id="pig" x="964.11" y="77.35" skinName="pig" enabled="true"/>
-
-
-
-png"/>
+	<e:Group id="collisionGroup" width="1334" height="750" x="0" y="0" locked="true">
+		<e:Image id="pigString" source="string_png" x="1069.33" y="65.35" fillMode="repeat" locked="true"/>
+		<ns1:Pig id="pig" x="964.11" y="77.35" skinName="pig" enabled="true" locked="true"/>
 	</e:Group>
+	<e:Group id="scoreGroup" width="600" height="400" x="331" y="206.52" locked="true" visible="false">
+		<e:Rect width="600" height="400" x="0" y="0" fillColor="0xffb7b7"/>
+		<e:Label text="你死了" x="226" y="97.73" size="50"/>
+	</e:Group>
+	<e:Label id="score" text="杀了0匹狼" x="619.24" y="425.76" textColor="0xFCEE02" anchorOffsetX="59.09" anchorOffsetY="25.76" size="50"/>
+
+
 
 
 </e:Skin>

@@ -9,6 +9,8 @@ class Wof extends eui.Component{
 	flySpeed = 60;
 	gameControl:Game;
 	randomLength:Number;
+	beKilled = false;
+	stone:Stone;//石头
 	public constructor(type, gameControl) {
 		super();
 		this.skinName = "wof";
@@ -27,6 +29,7 @@ class Wof extends eui.Component{
 		this.x = -100;
 		this.y = - 60;
 		this.alpha = 1;
+		this.beKilled = false;
 		this.autoMove();
 	}
 	setWofState(state){
@@ -51,6 +54,7 @@ class Wof extends eui.Component{
 		var bottomTime =1000 * (1400 - randomTop) / this.walkSpeed;
 		egret.Tween.get(this).to({x:randomTop} ,topWalkTime).call(()=>{
 			this.setWofState(1);
+			this.throwStone(flyTime);
 		}).to({y:590} ,flyTime).call(()=>{
 			this.setWofState(0);
 		}).to({x:1400}, bottomTime).call(()=>{
@@ -65,6 +69,7 @@ class Wof extends eui.Component{
 
 	beHited(){
 		egret.Tween.removeTweens(this);
+		this.beKilled = true;
 		this.setWofState(0);
 		var findIndex = this.gameControl.wofsArray.indexOf(this);
 		this.gameControl.wofsArray.splice(findIndex, 1);
@@ -72,10 +77,25 @@ class Wof extends eui.Component{
 			this.gameControl.wofsPool.push(this);
 			this.parent.removeChild(this);
 		});
+		this.gameControl.scoreCount++;
+		this.gameControl.updateScore();
 	}
 
 	//狼向猪扔石头
-	throwStone(){
-
+	throwStone(flyTime){
+		var time = Math.random()*flyTime;
+		setTimeout(()=>{
+			if(!this.beKilled && this.gameControl.stonesPool.length > 0){
+				this.stone = this.gameControl.stonesPool.pop();
+				var posStart = new egret.Point(this.x, this.y + 150);
+				var posEnd = new egret.Point(this.gameControl.pig.x + 85, this.gameControl.pig.y + 85);
+				var tempX = (posStart.x + posEnd.x) / 2;
+				var tempY = (posStart.y + posEnd.y) / 2 -100;
+				var posTemple = new egret.Point(tempX, tempY);
+				this.stone.setPos(posStart, posTemple, posEnd, this.gameControl);
+				this.parent.addChild(this.stone);
+				this.stone.throw();
+			}
+		}, time);
 	}
 }

@@ -14,6 +14,8 @@ var Game = (function (_super) {
         var _this = _super.call(this) || this;
         _this.wofsArray = []; //所有的狼 活动的
         _this.wofsPool = [];
+        _this.stonesPool = [];
+        _this.scoreCount = 0;
         _this.skinName = "gameComponent";
         return _this;
     }
@@ -25,10 +27,11 @@ var Game = (function (_super) {
         for (var i = 0; i < 10; i++) {
             var wof = new Wof(0, this);
             this.wofsPool.push(wof);
+            //初始化石头pool
+            var stone = new Stone(RES.getRes("stone_png"));
+            this.stonesPool.push(stone);
         }
         this.pig.setGameControl(this);
-        //
-        egret.startTick(this.startTic, this);
         this.timer = new egret.Timer(2000, 0);
         this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
         this.timer.start();
@@ -50,13 +53,11 @@ var Game = (function (_super) {
         var length = this.pig.y - this.pigString.y;
         this.pigString.height = length + 10;
     };
-    //碰撞检测
-    Game.prototype.startTic = function (dt) {
-        var _this = this;
-        this.wofsArray.forEach(function (element) {
-            _this.pig.hitWofTest(element);
-        });
-        return false;
+    Game.prototype.updateScore = function () {
+        this.score.text = "杀了" + this.scoreCount + "匹狼";
+    };
+    Game.prototype.gameOVer = function () {
+        this.scoreGroup.visible = true;
     };
     return Game;
 }(eui.Component));

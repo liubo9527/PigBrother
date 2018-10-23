@@ -83,6 +83,10 @@ var Pig = (function (_super) {
                 _this.arrowBag.push(arrow);
             }
         });
+        //射中狼没有
+        this.gameControl.wofsArray.forEach(function (element) {
+            _this.hitWofTest(element);
+        });
         return false;
     };
     Pig.prototype.hitWofTest = function (wof) {
@@ -107,6 +111,15 @@ var Pig = (function (_super) {
             arrow.alpha = 1;
             arrow.rotation = 0;
             _this.arrowBag.push(arrow);
+        });
+    };
+    Pig.prototype.beHited = function () {
+        var _this = this;
+        egret.stopTick(this.startTick, this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+        this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
+        egret.Tween.get(this).to({ y: 550, alpha: 1, rotation: 30 }, 1000).call(function () {
+            _this.gameControl.gameOVer();
         });
     };
     return Pig;

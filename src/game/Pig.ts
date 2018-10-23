@@ -78,6 +78,10 @@ class Pig extends eui.Component{
 				this.arrowBag.push(arrow);
 			}
 		});
+		//射中狼没有
+		this.gameControl.wofsArray.forEach(element => {
+			this.hitWofTest(element);
+		});
 		return false;
 	}
 
@@ -102,6 +106,15 @@ class Pig extends eui.Component{
 			arrow.alpha = 1;
 			arrow.rotation = 0;
 			this.arrowBag.push(arrow);
+		});
+	}
+
+	beHited(){
+		egret.stopTick(this.startTick, this);
+		this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
+		egret.Tween.get(this).to({y:550,alpha:1,rotation:30}, 1000).call(()=>{
+			this.gameControl.gameOVer();
 		});
 	}	
 }

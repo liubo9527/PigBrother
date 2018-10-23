@@ -1,45 +1,50 @@
 {
 	"groups": [
 		{
-			"name": "preload",
-			"keys": "background_png,pig_png,string_png,wolf1_png,arrow_png,ballute_png,wolf_png"
+			"keys": "background_png,pig_png,string_png,wolf1_png,arrow_png,ballute_png,wolf_png,stone_png",
+			"name": "preload"
 		}
 	],
 	"resources": [
 		{
-			"name": "background_png",
+			"url": "assets/background.png",
 			"type": "image",
-			"url": "assets/background.png"
+			"name": "background_png"
 		},
 		{
-			"name": "pig_png",
+			"url": "assets/pig.png",
 			"type": "image",
-			"url": "assets/pig.png"
+			"name": "pig_png"
 		},
 		{
-			"name": "string_png",
+			"url": "assets/string.png",
 			"type": "image",
-			"url": "assets/string.png"
+			"name": "string_png"
 		},
 		{
-			"name": "wolf1_png",
+			"url": "assets/wolf1.png",
 			"type": "image",
-			"url": "assets/wolf1.png"
+			"name": "wolf1_png"
 		},
 		{
-			"name": "arrow_png",
+			"url": "assets/arrow.png",
 			"type": "image",
-			"url": "assets/arrow.png"
+			"name": "arrow_png"
 		},
 		{
-			"name": "ballute_png",
+			"url": "assets/ballute.png",
 			"type": "image",
-			"url": "assets/ballute.png"
+			"name": "ballute_png"
 		},
 		{
-			"name": "wolf_png",
+			"url": "assets/wolf.png",
 			"type": "image",
-			"url": "assets/wolf.png"
+			"name": "wolf_png"
+		},
+		{
+			"url": "assets/stone.png",
+			"type": "image",
+			"name": "stone_png"
 		}
 	]
 }

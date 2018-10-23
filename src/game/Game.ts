@@ -4,7 +4,11 @@ class Game extends eui.Component {
 	pigString:eui.Image;
 	wofsArray = [];//所有的狼 活动的
 	wofsPool = [];
+	stonesPool = [];
 	timer:egret.Timer;
+	scoreGroup:eui.Group;
+	score:eui.Label;
+	scoreCount = 0;
 	public constructor() {
 		super();
 		this.skinName = "gameComponent";
@@ -18,11 +22,11 @@ class Game extends eui.Component {
 		for(var i =0; i < 10; i++){
 			var wof:Wof = new Wof(0, this);
 			this.wofsPool.push(wof);
+			//初始化石头pool
+			var stone:Stone = new Stone(RES.getRes("stone_png"));
+			this.stonesPool.push(stone);
 		}
 		this.pig.setGameControl(this);
-		//
-		egret.startTick(this.startTic, this);
-
 		this.timer = new egret.Timer(2000, 0);
 		this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
 		this.timer.start();
@@ -46,12 +50,11 @@ class Game extends eui.Component {
 		this.pigString.height = length + 10;
 	}
 
-	//碰撞检测
-	startTic(dt){
-		this.wofsArray.forEach(element => {
-			this.pig.hitWofTest(element);
-		});
+	updateScore(){
+		this.score.text = "杀了"+ this.scoreCount+"匹狼"
+	}
 
-		return false;
+	gameOVer(){
+		this.scoreGroup.visible = true;
 	}
 }

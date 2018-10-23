@@ -14,6 +14,7 @@ var Wof = (function (_super) {
         var _this = _super.call(this) || this;
         _this.walkSpeed = 120;
         _this.flySpeed = 60;
+        _this.beKilled = false;
         _this.skinName = "wof";
         _this.type = type;
         _this.gameControl = gameControl;
@@ -30,6 +31,7 @@ var Wof = (function (_super) {
         this.x = -100;
         this.y = -60;
         this.alpha = 1;
+        this.beKilled = false;
         this.autoMove();
     };
     Wof.prototype.setWofState = function (state) {
@@ -55,6 +57,7 @@ var Wof = (function (_super) {
         var bottomTime = 1000 * (1400 - randomTop) / this.walkSpeed;
         egret.Tween.get(this).to({ x: randomTop }, topWalkTime).call(function () {
             _this.setWofState(1);
+            _this.throwStone(flyTime);
         }).to({ y: 590 }, flyTime).call(function () {
             _this.setWofState(0);
         }).to({ x: 1400 }, bottomTime).call(function () {
@@ -69,6 +72,7 @@ var Wof = (function (_super) {
     Wof.prototype.beHited = function () {
         var _this = this;
         egret.Tween.removeTweens(this);
+        this.beKilled = true;
         this.setWofState(0);
         var findIndex = this.gameControl.wofsArray.indexOf(this);
         this.gameControl.wofsArray.splice(findIndex, 1);
@@ -76,9 +80,26 @@ var Wof = (function (_super) {
             _this.gameControl.wofsPool.push(_this);
             _this.parent.removeChild(_this);
         });
+        this.gameControl.scoreCount++;
+        this.gameControl.updateScore();
     };
     //狼向猪扔石头
-    Wof.prototype.throwStone = function () {
+    Wof.prototype.throwStone = function (flyTime) {
+        var _this = this;
+        var time = Math.random() * flyTime;
+        setTimeout(function () {
+            if (!_this.beKilled && _this.gameControl.stonesPool.length > 0) {
+                _this.stone = _this.gameControl.stonesPool.pop();
+                var posStart = new egret.Point(_this.x, _this.y + 150);
+                var posEnd = new egret.Point(_this.gameControl.pig.x + 85, _this.gameControl.pig.y + 85);
+                var tempX = (posStart.x + posEnd.x) / 2;
+                var tempY = (posStart.y + posEnd.y) / 2 - 100;
+                var posTemple = new egret.Point(tempX, tempY);
+                _this.stone.setPos(posStart, posTemple, posEnd, _this.gameControl);
+                _this.parent.addChild(_this.stone);
+                _this.stone.throw();
+            }
+        }, time);
     };
     return Wof;
 }(eui.Component));
