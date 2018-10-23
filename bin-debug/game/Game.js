@@ -12,7 +12,8 @@ var Game = (function (_super) {
     __extends(Game, _super);
     function Game() {
         var _this = _super.call(this) || this;
-        _this.wofsArray = []; //所有的狼
+        _this.wofsArray = []; //所有的狼 活动的
+        _this.wofsPool = [];
         _this.skinName = "gameComponent";
         return _this;
     }
@@ -21,11 +22,28 @@ var Game = (function (_super) {
         this.gameInit();
     };
     Game.prototype.gameInit = function () {
+        for (var i = 0; i < 10; i++) {
+            var wof = new Wof(0, this);
+            this.wofsPool.push(wof);
+        }
         this.pig.setGameControl(this);
-        var wof = new Wof(0, this.wofsArray);
-        this.collisionGroup.addChild(wof);
         //
         egret.startTick(this.startTic, this);
+        this.timer = new egret.Timer(2000, 0);
+        this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
+        this.timer.start();
+    };
+    Game.prototype.createWof = function (dt) {
+        var wof;
+        if (this.wofsPool.length > 0) {
+            wof = this.wofsPool.pop();
+        }
+        else {
+            wof = new Wof(0, this);
+        }
+        wof.setInit();
+        this.wofsArray.push(wof);
+        this.collisionGroup.addChild(wof);
     };
     //更新绳子的长度
     Game.prototype.updateString = function () {

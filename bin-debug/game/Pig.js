@@ -15,6 +15,7 @@ var Pig = (function (_super) {
         _this.arrowContainer = []; //猪的箭 活动的
         _this.arrowBag = []; //猪的箭袋 默认3只
         _this.arrowSpeed = 10;
+        _this.maxArrow = 5;
         return _this;
     }
     Pig.prototype.setGameControl = function (gameControl) {
@@ -34,12 +35,14 @@ var Pig = (function (_super) {
         egret.startTick(this.startTick, this);
         //初始化弓箭
         var i = 0;
-        while (i < 3) {
+        while (i < 5) {
             var arrow = new egret.Bitmap(RES.getRes("arrow_png"));
             if (this.parent) {
                 this.parent.addChild(arrow);
                 arrow.x = this.x;
-                arrow.y = this.y + 110;
+                arrow.scaleX = arrow.scaleY = 0.6;
+                arrow.anchorOffsetY = arrow.height / 2;
+                arrow.y = this.y + 130;
                 this.arrowContainer.push(arrow);
             }
             i++;
@@ -58,10 +61,10 @@ var Pig = (function (_super) {
     Pig.prototype.attack = function () {
         if (this.parent && this.arrowBag.length > 0) {
             var arrow = this.arrowBag.pop();
-            this.parent.addChild(arrow);
             arrow.x = this.x;
             arrow.y = this.y + 110;
             this.arrowContainer.push(arrow);
+            this.parent.addChild(arrow);
         }
     };
     Pig.prototype.getArrows = function () {
@@ -83,11 +86,27 @@ var Pig = (function (_super) {
         return false;
     };
     Pig.prototype.hitWofTest = function (wof) {
+        var _this = this;
         this.arrowContainer.forEach(function (element) {
             var arrow = element;
-            var point = wof.ballute.globalToLocal(arrow.x, arrow.y);
-            var flag = wof.ballute.hitTestPoint(point.x, point.y);
-            console.log(flag + "x:" + point.x + "y:" + point.y);
+            var hitBallute = wof.ballute.hitTestPoint(arrow.x, arrow.y);
+            var hitWof = wof.fly.hitTestPoint(arrow.x, arrow.y);
+            if (hitBallute) {
+                wof.beHited();
+            }
+            if (hitWof) {
+                _this.hitWofBody(arrow);
+            }
+        });
+    };
+    Pig.prototype.hitWofBody = function (arrow) {
+        var _this = this;
+        var findIndex = this.arrowContainer.indexOf(arrow);
+        this.arrowContainer.splice(findIndex, 1);
+        egret.Tween.get(arrow).to({ rotation: -90 }, 100).to({ y: 1000, alpha: 0 }, 3000).call(function () {
+            arrow.alpha = 1;
+            arrow.rotation = 0;
+            _this.arrowBag.push(arrow);
         });
     };
     return Pig;

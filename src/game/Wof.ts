@@ -1,29 +1,34 @@
 class Wof extends eui.Component{
 	walk:eui.Image;
 	flyGroup:eui.Group;
+	fly:eui.Image;
 	ballute:eui.Image;
 	state:0;//0 walk 1 air
 	type;//1boss default 0 渣
-	walkSpeed = 2;
-	flySpeed = 1;
-	allWofs:Array<any>;
+	walkSpeed = 120;
+	flySpeed = 60;
+	gameControl:Game;
 	randomLength:Number;
-	public constructor(type, array) {
+	public constructor(type, gameControl) {
 		super();
 		this.skinName = "wof";
 		this.type = type;
-		array.push(this);
-		this.allWofs = array;
+		this.gameControl = gameControl;
 	}
 	childrenCreated(){
 		super.childrenCreated();
-		this.setWofState(1);
+		this.setWofState(0);
 		this.x = -100;
 		this.y = - 60;
-		this.x = this.y = 300;
-		//this.autoMove();
 	}
 
+	setInit(){
+		this.setWofState(0);
+		this.x = -100;
+		this.y = - 60;
+		this.alpha = 1;
+		this.autoMove();
+	}
 	setWofState(state){
 		if(state == this.stage){
 			return ;
@@ -39,30 +44,38 @@ class Wof extends eui.Component{
 	}
 
 	autoMove(){
-		this.randomLength = Math.floor(Math.random()*600) + 128;
-		egret.startTick(this.start, this);
+		egret.Tween.removeTweens(this);
+		var randomTop = Math.floor(Math.random()*600) + 128;
+		var topWalkTime = 1000 * randomTop / this.walkSpeed;
+		var flyTime =1000 * 650 / this.flySpeed;
+		var bottomTime =1000 * (1400 - randomTop) / this.walkSpeed;
+		egret.Tween.get(this).to({x:randomTop} ,topWalkTime).call(()=>{
+			this.setWofState(1);
+		}).to({y:590} ,flyTime).call(()=>{
+			this.setWofState(0);
+		}).to({x:1400}, bottomTime).call(()=>{
+			var findIndex = this.gameControl.wofsArray.indexOf(this);
+			this.gameControl.wofsArray.splice(findIndex, 1);
+			if(this.parent){
+				this.parent.removeChild(this);
+				this.gameControl.wofsPool.push(this);
+			}
+		});
 	}
 
-	start(dt){
-		if(this.y == -60){
-			this.x += this.walkSpeed;
-			if(this.x >= this.randomLength){
-				this.y += this.flySpeed;
-			}
-		}else if(this.y > -60 && this.y < 590){
-			this.setWofState(1);
-			this.y += this.flySpeed;
-		}else if(this.y >= 590){
-			this.setWofState(0);
-			this.x += this.walkSpeed;
-			if(this.x > 1400){
-				var findIndex = this.allWofs.indexOf(this);
-				this.allWofs.splice(findIndex, 1);
-				if(this.parent){
-					this.parent.removeChild(this);
-				}
-			}
-		}
-		return false;
+	beHited(){
+		egret.Tween.removeTweens(this);
+		this.setWofState(0);
+		var findIndex = this.gameControl.wofsArray.indexOf(this);
+		this.gameControl.wofsArray.splice(findIndex, 1);
+		egret.Tween.get(this).to({y:1000, alpha:0} ,3000).call(()=>{
+			this.gameControl.wofsPool.push(this);
+			this.parent.removeChild(this);
+		});
+	}
+
+	//狼向猪扔石头
+	throwStone(){
+
 	}
 }
