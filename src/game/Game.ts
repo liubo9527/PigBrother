@@ -26,10 +26,12 @@ class Game extends eui.Component {
 			var stone:Stone = new Stone(RES.getRes("stone_png"));
 			this.stonesPool.push(stone);
 		}
+		
 		this.pig = new Pig();
 		this.pig.x = 964;
 		this.pig.y = 77;
 		this.pig.setGameControl(this);
+		this.addChild(this.pig);
 		this.timer = new egret.Timer(2000, 0);
 		this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
 		this.timer.start();

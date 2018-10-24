@@ -1,15 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <e:Skin class="gameComponent" width="1334" height="750" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing" xmlns:tween="egret.tween.*" xmlns:ns1="*">
-	<e:Image x="0" y="0" fillMode="repeat" width="1334" height="750" source="background_png" locked="true"/>
-	<e:Group id="collisionGroup" width="1334" height="750" x="0" y="0">
+	<w:Declarations>
+		<tween:TweenGroup id="one">
+			<tween:TweenItem target="{image}">
+				<tween:Set>
+					<tween:props>
+						<e:Object width="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="2350">
+					<tween:props>
+						<e:Object width="{1334}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image0}">
+				<tween:Set>
+					<tween:props>
+						<e:Object width="{0}"/>
+					</tween:props>
+				</tween:Set>
+				<tween:To duration="2350">
+					<tween:props>
+						<e:Object width="{90}"/>
+					</tween:props>
+				</tween:To>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+		<tween:TweenGroup id="two">
+			<tween:TweenItem target="{image}">
+				<tween:Set>
+					<tween:props>
+						<e:Object width="{0}"/>
+					</tween:props>
+				</tween:Set>
+			</tween:TweenItem>
+			<tween:TweenItem target="{image0}">
+				<tween:Set>
+					<tween:props>
+						<e:Object width="{0}"/>
+					</tween:props>
+				</tween:Set>
+			</tween:TweenItem>
+		</tween:TweenGroup>
+
+	</w:Declarations>
+	<e:Image id="image" x="0" y="0" fillMode="clip" width="1334" height="750" source="background_png"/>
+	<e:Group id="collisionGroup" width="1334" height="750" x="0" y="0" locked="true">
 		<e:Image id="pigString" source="string_png" x="1069.33" y="65.35" fillMode="repeat" locked="true"/>
+
+
 
 	</e:Group>
 	<e:Group id="scoreGroup" width="600" height="400" x="331" y="206.52" visible="false" locked="true">
 		<e:Rect width="600" height="400" x="0" y="0" fillColor="0xffb7b7"/>
 		<e:Label text="你死了" x="226" y="97.73" size="50"/>
 	</e:Group>
-	<e:Label id="score" text="杀了0匹狼" x="619.24" y="425.76" textColor="0xFCEE02" anchorOffsetX="59.09" anchorOffsetY="25.76" size="50"/>
+	<e:Label id="score" text="杀了0匹狼" x="619.24" y="425.76" textColor="0xFCEE02" anchorOffsetX="59.09" anchorOffsetY="25.76" size="50" locked="true"/>
 
 
 
