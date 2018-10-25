@@ -57,7 +57,7 @@ class Main extends eui.UILayer {
     }
 
     private async runGame() {
-        await this.loadResource()
+        await this.loadResource();
     }
 
     private async loadResource() {
