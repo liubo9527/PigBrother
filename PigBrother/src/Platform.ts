@@ -8,8 +8,7 @@ declare interface Platform {
 
     getUserInfo(): Promise<any>;
 
-    login(): Promise<any>
-
+    login(): Promise<any>;
 }
 
 class DebugPlatform implements Platform {
@@ -20,7 +19,6 @@ class DebugPlatform implements Platform {
 
     }
 }
-
 
 if (!window.platform) {
     window.platform = new DebugPlatform();

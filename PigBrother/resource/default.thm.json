@@ -4,6 +4,7 @@
 	"exmls": [
 		"resource/mySkins/gameComponent.exml",
 		"resource/mySkins/pig.exml",
+		"resource/mySkins/wellcome.exml",
 		"resource/mySkins/wof.exml"
 	],
 	"path": "resource/default.thm.json"

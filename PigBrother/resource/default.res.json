@@ -1,7 +1,7 @@
 {
 	"groups": [
 		{
-			"keys": "background_png,pig_png,string_png,wolf1_png,arrow_png,ballute_png,wolf_png,stone_png",
+			"keys": "background_png,pig_png,string_png,wolf1_png,arrow_png,ballute_png,wolf_png,stone_png,start_png,wellcome_png",
 			"name": "preload"
 		}
 	],
@@ -45,6 +45,16 @@
 			"url": "assets/stone.png",
 			"type": "image",
 			"name": "stone_png"
+		},
+		{
+			"name": "start_png",
+			"type": "image",
+			"url": "assets/start.png"
+		},
+		{
+			"name": "wellcome_png",
+			"type": "image",
+			"url": "assets/wellcome.png"
 		}
 	]
 }

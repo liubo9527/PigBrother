@@ -58,7 +58,6 @@ class Main extends eui.UILayer {
 
     private async runGame() {
         await this.loadResource()
-        wx.
     }
 
     private async loadResource() {
