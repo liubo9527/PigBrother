@@ -22,9 +22,9 @@ class Pig extends eui.Component{
 	//
 	private init(){
 		//this.addEventListener(egret.TouchEvent.TOUCH_BEGIN, this.touchBegin, this);
-		this.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+		 GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
 		//this.addEventListener(egret.TouchEvent.TOUCH_END, this.TouchEnd, this);
-		this.addEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
+		 GameConst.stage.addEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
 
 		egret.startTick(this.startTick, this);
 		//初始化弓箭
@@ -111,8 +111,8 @@ class Pig extends eui.Component{
 
 	beHited(){
 		egret.stopTick(this.startTick, this);
-		this.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-		this.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
+		GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+		GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
 		egret.Tween.get(this).to({y:550,alpha:1,rotation:30}, 1000).call(()=>{
 			this.gameControl.gameOVer();
 		});

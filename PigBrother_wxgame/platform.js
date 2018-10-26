@@ -17,19 +17,8 @@ class WxgamePlatform {
                                 console.log("已经授权,直接调getUserInfo");
                                 wx.getUserInfo({
                                     success:(res)=>{
-                                        var user = {
-                                            code: res.code,
-                                            encryptedData: res.encryptedData,
-                                            iv: res.iv,
-                                            nickName: res.userInfo.nickName,
-                                            gender: res.userInfo.gender,
-                                            city: res.userInfo.city,
-                                            province: res.userInfo.Promise,
-                                            country: res.country,
-                                            avatarUrl: res.userInfo.avatarUrl
-                                        }
                                         resolve(res);
-                                        console.log("wx.getUserInfo数据"+JSON.stringify(user));
+                                        console.log("wx.getUserInfo数据"+JSON.stringify(res));
                                     }
                                 })
                             }else{
