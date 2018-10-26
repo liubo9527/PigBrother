@@ -1,4 +1,5 @@
-require('./weapp-adapter.js');
+ 
+ require('./weapp-adapter.js');
 require('./platform.js');
 require('./manifest.js');
 require('./egret.wxgame.js');
@@ -9,7 +10,7 @@ if(window.RES && RES.processor) {
     require('./library/image.js');
     require('./library/text.js');
     require('./library/sound.js');
-    require('./library/binary.js');
+    require('./library/binary.js'); 
 }
 
 egret.runEgret({

@@ -3,6 +3,7 @@
  */
 
 class WxgamePlatform {
+    user = "";
 
     name = 'wxgame'
 
@@ -10,7 +11,54 @@ class WxgamePlatform {
         return new Promise((resolve, reject) => {
             wx.login({
                 success: (res) => {
-                    resolve(res)
+                    wx.getSetting({
+                        success(res){
+                            if(res.authSetting['scope.userInfo']){
+                                console.log("已经授权,直接调getUserInfo");
+                                wx.getUserInfo({
+                                    success:(res)=>{
+                                        var user = {
+                                            code: res.code,
+                                            encryptedData: res.encryptedData,
+                                            iv: res.iv,
+                                            nickName: res.userInfo.nickName,
+                                            gender: res.userInfo.gender,
+                                            city: res.userInfo.city,
+                                            province: res.userInfo.Promise,
+                                            country: res.country,
+                                            avatarUrl: res.userInfo.avatarUrl
+                                        }
+                                        resolve(res);
+                                        console.log("wx.getUserInfo数据"+JSON.stringify(user));
+                                    }
+                                })
+                            }else{
+                                console.log("没有授权，走wx.createUserInfoButton");
+                                let button = wx.createUserInfoButton({
+                                    type: "text",
+                                    text: "登录授权",
+                                    style: {
+                                        left: 0,
+                                        top: 0,
+                                        width: 667,
+                                        height: 375,
+                                        lineHeight: 40,
+                                        backgroundColor: '##00000000',
+                                        color: '#00000000',
+                                        textAlign: 'center',
+                                        fontSize: 16,
+                                        borderRadius: 4
+                                    }
+                                });
+                                button.onTap((res)=>{
+                                    if(res.errMsg == "getUserInfo:ok"){
+                                        button.destroy();//登录成功
+                                    }
+                                    resolve(res);
+                                });
+                            }
+                        }
+                    });
                 }
             })
         })

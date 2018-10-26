@@ -26,14 +26,6 @@
     },
     {
       "name": "promise"
-    },
-    {
-      "name": "physics",
-      "path": "./libs/physics"
-    },
-    {
-      "name": "weixinapi",
-      "path": "./libs/weixinapi"
     }
   ]
 }

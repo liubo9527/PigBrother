@@ -7,8 +7,7 @@
 		"libs/modules/tween/tween.js",
 		"libs/modules/dragonBones/dragonBones.js",
 		"libs/modules/game/game.js",
-		"libs/modules/promise/promise.js",
-		"libs/physics/physics.js"
+		"libs/modules/promise/promise.js"
 	],
 	"game": [
 		"bin-debug/game/Game.js",
@@ -23,6 +22,6 @@
 		"bin-debug/game/Stone.js",
 		"bin-debug/game/Wellcome.js",
 		"bin-debug/game/Wof.js",
-		"bin-debug/tool/PhysicsTool.js"
+		"bin-debug/tool/Button.js"
 	]
 }

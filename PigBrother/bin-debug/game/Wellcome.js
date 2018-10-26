@@ -17,6 +17,14 @@ var Wellcome = (function (_super) {
     }
     Wellcome.prototype.childrenCreated = function () {
         _super.prototype.childrenCreated.call(this);
+        //调登录
+        var startButton = new Button();
+        startButton.Init("start_png", "", function (param) {
+            platform.login();
+        }, "start");
+        startButton.x = 1336 / 2;
+        startButton.y = 400;
+        this.addChild(startButton);
     };
     return Wellcome;
 }(eui.Component));

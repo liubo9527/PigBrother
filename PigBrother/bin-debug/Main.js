@@ -110,7 +110,7 @@ var Main = (function (_super) {
     };
     Main.prototype.loadResource = function () {
         return __awaiter(this, void 0, void 0, function () {
-            var loadingView, game, e_1;
+            var loadingView, wellcome, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
@@ -128,8 +128,8 @@ var Main = (function (_super) {
                         _a.sent();
                         this.stage.removeChild(loadingView);
                         GameConst.stage = this.stage;
-                        game = new Game();
-                        this.stage.addChild(game);
+                        wellcome = new Wellcome();
+                        this.stage.addChild(wellcome);
                         return [3 /*break*/, 5];
                     case 4:
                         e_1 = _a.sent();

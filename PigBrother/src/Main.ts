@@ -69,8 +69,10 @@ class Main extends eui.UILayer {
             await RES.loadGroup("preload", 0, loadingView);
             this.stage.removeChild(loadingView);
             GameConst.stage = this.stage;
-            var game:Game = new Game();
-            this.stage.addChild(game);
+            // var game:Game = new Game();
+            // this.stage.addChild(game);
+            var wellcome:Wellcome = new Wellcome();
+            this.stage.addChild(wellcome);
         }
         catch (e) {
             console.error(e);
