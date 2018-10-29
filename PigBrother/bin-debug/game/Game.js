@@ -24,6 +24,7 @@ var Game = (function (_super) {
         this.gameInit();
     };
     Game.prototype.gameInit = function () {
+        var _this = this;
         for (var i = 0; i < 10; i++) {
             var wof = new Wof(0, this);
             this.wofsPool.push(wof);
@@ -35,10 +36,24 @@ var Game = (function (_super) {
         this.pig.x = 964;
         this.pig.y = 77;
         this.pig.setGameControl(this);
-        this.addChild(this.pig);
+        this.collisionGroup.addChild(this.pig);
+        //技能
+        this.pigSkill = new PigSkill(this.pig);
+        this.pigSkill.x = 1020;
+        this.pigSkill.y = 90;
+        this.collisionGroup.addChild(this.pigSkill);
         this.timer = new egret.Timer(2000, 0);
         this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
         this.timer.start();
+        var restartBt = new Button();
+        restartBt.Init("start_png", "", function (param) {
+            _this.scoreGroup.visible = false;
+            _this.reStart();
+        }, 2);
+        restartBt.x = 300;
+        restartBt.y = 300;
+        restartBt.scaleX = restartBt.scaleY = 0.5;
+        this.scoreGroup.addChild(restartBt);
     };
     Game.prototype.createWof = function (dt) {
         var wof;
@@ -62,6 +77,10 @@ var Game = (function (_super) {
     };
     Game.prototype.gameOVer = function () {
         this.scoreGroup.visible = true;
+    };
+    Game.prototype.reStart = function () {
+        this.parent.addChild(new Game());
+        this.parent.removeChild(this);
     };
     return Game;
 }(eui.Component));

@@ -2,8 +2,10 @@
 	"skins": {},
 	"autoGenerateExmlsList": true,
 	"exmls": [
+		"resource/mySkins/arrow.exml",
 		"resource/mySkins/gameComponent.exml",
 		"resource/mySkins/pig.exml",
+		"resource/mySkins/pigSkill.exml",
 		"resource/mySkins/wellcome.exml",
 		"resource/mySkins/wof.exml"
 	],

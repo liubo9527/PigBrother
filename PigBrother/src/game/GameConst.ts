@@ -5,11 +5,10 @@ class GameConst {
     {
         var ua:string = navigator.userAgent.toString();
         var str:any = ua.match(/MicroMessenger/i);
-        if(str=="MicroMessenger") {
+        if(str == "MicroMessenger") {
              return true;
          } else {
                return false;
          }
- 
     }
 }

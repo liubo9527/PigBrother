@@ -4,6 +4,16 @@ var __reflect = (this && this.__reflect) || function (p, c, t) {
 var GameConst = (function () {
     function GameConst() {
     }
+    GameConst.isWeiXin = function () {
+        var ua = navigator.userAgent.toString();
+        var str = ua.match(/MicroMessenger/i);
+        if (str == "MicroMessenger") {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     return GameConst;
 }());
 __reflect(GameConst.prototype, "GameConst");

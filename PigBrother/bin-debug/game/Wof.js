@@ -57,7 +57,10 @@ var Wof = (function (_super) {
         var bottomTime = 1000 * (1400 - randomTop) / this.walkSpeed;
         egret.Tween.get(this).to({ x: randomTop }, topWalkTime).call(function () {
             _this.setWofState(1);
-            _this.throwStone(flyTime);
+            var rand = Math.round(Math.random() * 10);
+            if (rand > 6) {
+                _this.throwStone(flyTime);
+            }
         }).to({ y: 590 }, flyTime).call(function () {
             _this.setWofState(0);
         }).to({ x: 1400 }, bottomTime).call(function () {

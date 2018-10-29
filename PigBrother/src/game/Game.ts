@@ -9,6 +9,7 @@ class Game extends eui.Component {
 	scoreGroup:eui.Group;
 	score:eui.Label;
 	scoreCount = 0;
+	pigSkill:PigSkill;
 	public constructor() {
 		super();
 		this.skinName = "gameComponent";
@@ -26,15 +27,30 @@ class Game extends eui.Component {
 			var stone:Stone = new Stone(RES.getRes("stone_png"));
 			this.stonesPool.push(stone);
 		}
-		
 		this.pig = new Pig();
 		this.pig.x = 964;
 		this.pig.y = 77;
 		this.pig.setGameControl(this);
-		this.addChild(this.pig);
+		this.collisionGroup.addChild(this.pig);
+		//技能
+		this.pigSkill = new PigSkill(this.pig);
+		this.pigSkill.x = 1020;
+		this.pigSkill.y = 90;
+		this.collisionGroup.addChild(this.pigSkill);
+		
 		this.timer = new egret.Timer(2000, 0);
 		this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
 		this.timer.start();
+
+		var restartBt = new Button();
+		restartBt.Init("start_png", "", (param)=>{
+			this.scoreGroup.visible = false;
+			this.reStart();
+		}, 2);
+		restartBt.x =300;
+		restartBt.y = 300;
+		restartBt.scaleX = restartBt.scaleY = 0.5;
+		this.scoreGroup.addChild(restartBt);
 	}
 
 	createWof(dt){
@@ -61,5 +77,10 @@ class Game extends eui.Component {
 
 	gameOVer(){
 		this.scoreGroup.visible = true;
+	}
+
+	reStart(){
+		this.parent.addChild(new Game());
+		this.parent.removeChild(this);	
 	}
 }

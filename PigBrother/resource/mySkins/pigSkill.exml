@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<e:Skin class="pigSkill" width="100" height="100" xmlns:e="http://ns.egret.com/eui" xmlns:w="http://ns.egret.com/wing">
+	<e:Image id="stone" source="stone_png" x="25" y="31" locked="true" visible="false"/>
+	<e:Image id="boom" source="boom_png" x="11" y="29" anchorOffsetX="0" width="78" anchorOffsetY="0" height="42" visible="false"/>
+</e:Skin>
