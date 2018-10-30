@@ -14,6 +14,16 @@ var GameConst = (function () {
             return false;
         }
     };
+    GameConst.crossTest = function (object1, object2) {
+        object1.getTransformedBounds(GameConst.stage, this.rect1);
+        object2.getTransformedBounds(GameConst.stage, this.rect2);
+        if (this.rect1.intersects(this.rect2)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    };
     return GameConst;
 }());
 __reflect(GameConst.prototype, "GameConst");

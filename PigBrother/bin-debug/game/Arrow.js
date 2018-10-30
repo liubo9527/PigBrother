@@ -126,8 +126,10 @@ var Arrow = (function (_super) {
         this.pig.gameControl.wofsArray.forEach(function (element) {
             var wof = element;
             if (_this.type == 0) {
-                var hitBallute = wof.ballute.hitTestPoint(_this.x, _this.y);
-                var hitWof = wof.fly.hitTestPoint(_this.x, _this.y);
+                //var hitBallute = wof.ballute.hitTestPoint(this.x, this.y);
+                //var hitWof = wof.fly.hitTestPoint(this.x, this.y);
+                var hitBallute = GameConst.crossTest(wof.ballute, _this);
+                var hitWof = GameConst.crossTest(wof.fly, _this);
                 if (hitBallute) {
                     wof.beHited();
                 }
@@ -136,7 +138,7 @@ var Arrow = (function (_super) {
                 }
             }
             else if (_this.type == 1 || _this.type == 2) {
-                if (wof.hitTestPoint(_this.x, _this.y)) {
+                if (GameConst.crossTest(wof, _this)) {
                     wof.beHited();
                 }
             }

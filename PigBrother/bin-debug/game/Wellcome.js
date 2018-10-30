@@ -19,32 +19,32 @@ var Wellcome = (function (_super) {
     Wellcome.prototype.childrenCreated = function () {
         var _this = this;
         _super.prototype.childrenCreated.call(this);
-        //调登录
-        if (GameConst.isWeiXin()) {
-            platform.login().then(function (res) {
-                console.log("ergert:res" + JSON.stringify(res));
-                if (res.errMsg == "getUserInfo:ok") {
-                    _this.login = true;
-                    //存储解析json
-                    var user = {
-                        code: res.code,
-                        encryptedData: res.encryptedData,
-                        iv: res.iv,
-                        nickName: res.userInfo.nickName,
-                        gender: res.userInfo.gender,
-                        city: res.userInfo.city,
-                        province: res.userInfo.Promise,
-                        country: res.country,
-                        avatarUrl: res.userInfo.avatarUrl
-                    };
-                    GameData.getInstance().user = user;
-                    _this.loadIM();
-                } //登录失败doNoting
-            });
-        }
-        else {
-            this.login = true;
-        }
+        // //调登录
+        // if(GameConst.isWeiXin()){
+        // 	platform.login().then((res)=>{
+        // 		console.log("ergert:res"+JSON.stringify(res));
+        // 		if(res.errMsg == "getUserInfo:ok"){//已经登录成功
+        // 			this.login = true;
+        // 			//存储解析json
+        // 			var user = {
+        // 				code: res.code,
+        // 				encryptedData: res.encryptedData,
+        // 				iv: res.iv,
+        // 				nickName: res.userInfo.nickName,
+        // 				gender: res.userInfo.gender,
+        // 				city: res.userInfo.city,
+        // 				province: res.userInfo.Promise,
+        // 				country: res.country,
+        // 				avatarUrl: res.userInfo.avatarUrl
+        //             }
+        // 			GameData.getInstance().user = user;
+        // 			this.loadIM();
+        // 		}//登录失败doNoting
+        // 	});
+        // }else{
+        // 	this.login = true;
+        // }
+        this.login = true;
         var startButton = new Button();
         startButton.Init("start_png", "", function (param) {
             if (_this.login) {

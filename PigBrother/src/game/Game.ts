@@ -33,11 +33,12 @@ class Game extends eui.Component {
 		this.pig.setGameControl(this);
 		this.collisionGroup.addChild(this.pig);
 		//技能
+		
 		this.pigSkill = new PigSkill(this.pig);
 		this.pigSkill.x = 1020;
 		this.pigSkill.y = 90;
 		this.collisionGroup.addChild(this.pigSkill);
-		
+
 		this.timer = new egret.Timer(2000, 0);
 		this.timer.addEventListener(egret.TimerEvent.TIMER, this.createWof, this);
 		this.timer.start();

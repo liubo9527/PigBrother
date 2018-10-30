@@ -120,8 +120,10 @@ class Arrow extends eui.Component {
 		this.pig.gameControl.wofsArray.forEach(element => {
 			var wof:Wof = element;
 			if(this.type == 0){//普通的弓箭
-				var hitBallute = wof.ballute.hitTestPoint(this.x, this.y);
-				var hitWof = wof.fly.hitTestPoint(this.x, this.y);
+				//var hitBallute = wof.ballute.hitTestPoint(this.x, this.y);
+				//var hitWof = wof.fly.hitTestPoint(this.x, this.y);
+				var hitBallute = GameConst.crossTest(wof.ballute, this);
+				var hitWof = GameConst.crossTest(wof.fly, this);
 				if(hitBallute){//射中气球了
 					wof.beHited();
 				}
@@ -129,7 +131,7 @@ class Arrow extends eui.Component {
 					this.hitWofBody();
 				}
 			}else if(this.type == 1|| this.type == 2){//绑了石头的弓箭 或者是炮弹
-				if(wof.hitTestPoint(this.x, this.y)){
+				if(GameConst.crossTest(wof, this)){
 					wof.beHited();
 				}
 			}

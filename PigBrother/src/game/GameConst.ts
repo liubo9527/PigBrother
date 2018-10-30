@@ -1,6 +1,7 @@
 class GameConst {
+    public static rect1:egret.Rectangle;
+    public static rect2:egret.Rectangle;
 	public static stage:egret.Stage;
-
 	public static isWeiXin():boolean
     {
         var ua:string = navigator.userAgent.toString();
@@ -11,4 +12,15 @@ class GameConst {
                return false;
          }
     }
+
+    public static crossTest(object1:egret.DisplayObject, object2:egret.DisplayObject){
+        object1.getTransformedBounds(GameConst.stage, this.rect1);
+        object2.getTransformedBounds(GameConst.stage, this.rect2);
+        if(this.rect1.intersects(this.rect2)){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }
