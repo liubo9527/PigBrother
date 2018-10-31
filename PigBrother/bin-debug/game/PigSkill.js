@@ -27,15 +27,15 @@ var PigSkill = (function (_super) {
     };
     PigSkill.prototype.createSkill = function () {
         this.skillOpen = true;
-        this.stone.visible = true;
+        this.bone.visible = true;
         var randSkill = Math.round(Math.random() + 1);
         if (randSkill == 1) {
-            this.stone.visible = true;
+            this.bone.visible = true;
             this.boom.visible = false;
         }
         else {
             this.boom.visible = true;
-            this.stone.visible = false;
+            this.bone.visible = false;
         }
         this.currentSkill = randSkill;
         egret.startTick(this.startTic, this);
@@ -45,7 +45,7 @@ var PigSkill = (function (_super) {
             egret.stopTick(this.startTic, this);
             this.pig.setSkill(this.currentSkill);
             this.boom.visible = false;
-            this.stone.visible = false;
+            this.bone.visible = false;
         }
         return false;
     };

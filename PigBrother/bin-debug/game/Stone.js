@@ -11,7 +11,9 @@ r.prototype = e.prototype, t.prototype = new r();
 var Stone = (function (_super) {
     __extends(Stone, _super);
     function Stone(s) {
-        return _super.call(this, s) || this;
+        var _this = _super.call(this, s) || this;
+        _this.active = true;
+        return _this;
     }
     Object.defineProperty(Stone.prototype, "factor", {
         get: function () {
@@ -40,10 +42,26 @@ var Stone = (function (_super) {
         });
         egret.startTick(this.start, this);
     };
-    Stone.prototype.start = function (dt) {
-        if (this.gameControl.pig.hitTestPoint(this.x, this.y)) {
+    Stone.prototype.hitTest = function () {
+        var _this = this;
+        if ((GameConst.crossTest(this.gameControl.pig.pigTop, this)
+            || GameConst.crossTest(this.gameControl.pig.pigBottom, this)) && this.active) {
+            egret.Tween.removeTweens(this);
+            this.active = false;
+            egret.Tween.get(this).to({ x: this.x - 50, y: this.y + 1000 }, 2000).call(function () {
+                _this.parent.removeChild(_this);
+                egret.stopTick(_this.start, _this);
+                _this.active = true;
+                _this.gameControl.stonesPool.push(_this);
+            });
+        }
+        else if (GameConst.crossTest(this.gameControl.pig.pig, this) && this.active) {
+            this.active = false;
             this.gameControl.pig.beHited();
         }
+    };
+    Stone.prototype.start = function (dt) {
+        this.hitTest();
         return false;
     };
     return Stone;

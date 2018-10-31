@@ -13,7 +13,7 @@ var Arrow = (function (_super) {
     function Arrow(type, pig) {
         var _this = _super.call(this) || this;
         _this.type = 0;
-        _this.speed = 0.6;
+        _this.speed = 1;
         _this.skinName = 'arrow';
         _this.pig = pig;
         _this.addEventListener(egret.Event.ADDED_TO_STAGE, _this.onAdd, _this);
@@ -29,17 +29,17 @@ var Arrow = (function (_super) {
         this.type = type;
         if (this.type == 0) {
             this.boom.visible = false;
-            this.stone.visible = false;
+            this.bone.visible = false;
             this.arrow.visible = true;
         }
         else if (this.type == 1) {
             this.boom.visible = false;
-            this.stone.visible = true;
-            this.arrow.visible = true;
+            this.bone.visible = true;
+            this.arrow.visible = false;
         }
         else if (this.type == 2) {
             this.boom.visible = true;
-            this.stone.visible = false;
+            this.bone.visible = false;
             this.arrow.visible = false;
         }
     };
@@ -79,7 +79,7 @@ var Arrow = (function (_super) {
         }
         else if (this.type == 1) {
             x = 200;
-            distance = 667;
+            distance = 1600;
             y = 750;
             rotation = -45;
         }
@@ -126,10 +126,10 @@ var Arrow = (function (_super) {
         this.pig.gameControl.wofsArray.forEach(function (element) {
             var wof = element;
             if (_this.type == 0) {
-                //var hitBallute = wof.ballute.hitTestPoint(this.x, this.y);
-                //var hitWof = wof.fly.hitTestPoint(this.x, this.y);
-                var hitBallute = GameConst.crossTest(wof.ballute, _this);
-                var hitWof = GameConst.crossTest(wof.fly, _this);
+                var hitBallute = wof.ballute.hitTestPoint(_this.x, _this.y);
+                var hitWof = wof.fly.hitTestPoint(_this.x, _this.y);
+                //var hitBallute = GameConst.crossTest(wof.ballute, this);
+                //var hitWof = GameConst.crossTest(wof.fly, this);
                 if (hitBallute) {
                     wof.beHited();
                 }
@@ -137,7 +137,12 @@ var Arrow = (function (_super) {
                     _this.hitWofBody();
                 }
             }
-            else if (_this.type == 1 || _this.type == 2) {
+            else if (_this.type == 1) {
+                if (GameConst.crossTest(wof, _this.arrow)) {
+                    wof.beHited();
+                }
+            }
+            else if (_this.type == 2) {
                 if (GameConst.crossTest(wof, _this)) {
                     wof.beHited();
                 }

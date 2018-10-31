@@ -4,6 +4,10 @@ class Pig extends eui.Component{
 	arrowBag:Array<Arrow> = [];//猪的箭袋 默认5支
 	maxArrow = 5;
 	skillType = 0;
+	pigTop:eui.Image;
+	pigBottom:eui.Image;
+	pig:eui.Image;
+	alive = true;
 	public constructor() {
 		super();
 		this.skinName = "pig";	
@@ -52,7 +56,7 @@ class Pig extends eui.Component{
 			var arrow = this.arrowBag.pop();
 			arrow.setType(this.skillType);
 			this.parent.addChild(arrow);
-			arrow.x = this.x;
+			arrow.x = this.x + 100;
 			arrow.y = this.y + 120;
 			arrow.fire();
 			this.arrowContainer.push(arrow);
@@ -66,10 +70,19 @@ class Pig extends eui.Component{
 
 
 	beHited(){
-		GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-		GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
-		egret.Tween.get(this).to({y:550,alpha:1,rotation:30}, 1000).call(()=>{
-			this.gameControl.gameOVer();
-		});
+		if(this.alive){
+			this.alive = false;
+			GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+			GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
+			var pigFall = new egret.Bitmap(RES.getRes("pigFall_png"));
+			var pos = this.pig.localToGlobal(this.pig.x, this.pig.y);
+			pigFall.x = pos.x - 50;
+			pigFall.y = pos.y;
+			this.parent.addChild(pigFall);
+			this.pig.visible = false;
+			egret.Tween.get(pigFall).to({y:550, x:this.x - 100}, 1000).call(()=>{
+				this.gameControl.gameOVer();
+			});
+		}
 	}	
 }

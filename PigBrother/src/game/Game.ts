@@ -10,6 +10,8 @@ class Game extends eui.Component {
 	score:eui.Label;
 	scoreCount = 0;
 	pigSkill:PigSkill;
+	pigTop:eui.Image;
+	pigBottom:eui.Image;
 	public constructor() {
 		super();
 		this.skinName = "gameComponent";

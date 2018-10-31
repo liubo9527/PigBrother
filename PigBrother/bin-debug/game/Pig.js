@@ -16,6 +16,7 @@ var Pig = (function (_super) {
         _this.arrowBag = []; //猪的箭袋 默认5支
         _this.maxArrow = 5;
         _this.skillType = 0;
+        _this.alive = true;
         _this.skinName = "pig";
         return _this;
     }
@@ -58,7 +59,7 @@ var Pig = (function (_super) {
             var arrow = this.arrowBag.pop();
             arrow.setType(this.skillType);
             this.parent.addChild(arrow);
-            arrow.x = this.x;
+            arrow.x = this.x + 100;
             arrow.y = this.y + 120;
             arrow.fire();
             this.arrowContainer.push(arrow);
@@ -70,11 +71,20 @@ var Pig = (function (_super) {
     };
     Pig.prototype.beHited = function () {
         var _this = this;
-        GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
-        GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
-        egret.Tween.get(this).to({ y: 550, alpha: 1, rotation: 30 }, 1000).call(function () {
-            _this.gameControl.gameOVer();
-        });
+        if (this.alive) {
+            this.alive = false;
+            GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_MOVE, this.touchMove, this);
+            GameConst.stage.removeEventListener(egret.TouchEvent.TOUCH_TAP, this.attack, this);
+            var pigFall = new egret.Bitmap(RES.getRes("pigFall_png"));
+            var pos = this.pig.localToGlobal(this.pig.x, this.pig.y);
+            pigFall.x = pos.x - 50;
+            pigFall.y = pos.y;
+            this.parent.addChild(pigFall);
+            this.pig.visible = false;
+            egret.Tween.get(pigFall).to({ y: 550, x: this.x - 100 }, 1000).call(function () {
+                _this.gameControl.gameOVer();
+            });
+        }
     };
     return Pig;
 }(eui.Component));

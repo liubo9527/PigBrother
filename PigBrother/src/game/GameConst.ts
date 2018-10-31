@@ -14,6 +14,12 @@ class GameConst {
     }
 
     public static crossTest(object1:egret.DisplayObject, object2:egret.DisplayObject){
+        if(!this.rect1){
+            this.rect1 = new egret.Rectangle();
+        }
+        if(!this.rect2){
+            this.rect2 = new egret.Rectangle();
+        }
         object1.getTransformedBounds(GameConst.stage, this.rect1);
         object2.getTransformedBounds(GameConst.stage, this.rect2);
         if(this.rect1.intersects(this.rect2)){

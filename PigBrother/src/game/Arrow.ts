@@ -3,11 +3,11 @@ class Arrow extends eui.Component {
 	posStart:egret.Point;
 	posTemple:egret.Point;
 	posEnd:egret.Point;
-	stone:eui.Image;
+	bone:eui.Image;
 	arrow:eui.Image;
 	boom:eui.Image;
 	type = 0;
-	speed = 0.6;
+	speed = 1;
 	public constructor(type, pig:Pig) {
 		super();
 		this.skinName = 'arrow';
@@ -25,15 +25,15 @@ class Arrow extends eui.Component {
 		this.type = type;
 		if(this.type == 0){
 			this.boom.visible = false;
-			this.stone.visible = false;
+			this.bone.visible = false;
 			this.arrow.visible = true;
 		}else if(this.type == 1){
 			this.boom.visible = false;
-			this.stone.visible = true;
-			this.arrow.visible = true;
+			this.bone.visible = true;
+			this.arrow.visible = false;
 		}else if(this.type == 2){
 			this.boom.visible = true;
-			this.stone.visible = false;
+			this.bone.visible = false;
 			this.arrow.visible = false;
 		}
 	}
@@ -74,7 +74,7 @@ class Arrow extends eui.Component {
 			rotation = -Math.atan(0.05)*180 / 3.14;
 		}else if(this.type == 1){
 			x = 200;
-			distance = 667;
+			distance = 1600;
 			y = 750;
 			rotation = -45;
 		}
@@ -120,17 +120,21 @@ class Arrow extends eui.Component {
 		this.pig.gameControl.wofsArray.forEach(element => {
 			var wof:Wof = element;
 			if(this.type == 0){//普通的弓箭
-				//var hitBallute = wof.ballute.hitTestPoint(this.x, this.y);
-				//var hitWof = wof.fly.hitTestPoint(this.x, this.y);
-				var hitBallute = GameConst.crossTest(wof.ballute, this);
-				var hitWof = GameConst.crossTest(wof.fly, this);
+				var hitBallute = wof.ballute.hitTestPoint(this.x, this.y);
+				var hitWof = wof.fly.hitTestPoint(this.x, this.y);
+				//var hitBallute = GameConst.crossTest(wof.ballute, this);
+				//var hitWof = GameConst.crossTest(wof.fly, this);
 				if(hitBallute){//射中气球了
 					wof.beHited();
 				}
 				if(hitWof){
 					this.hitWofBody();
 				}
-			}else if(this.type == 1|| this.type == 2){//绑了石头的弓箭 或者是炮弹
+			}else if(this.type == 1){//绑了石头的弓箭 或者是炮弹
+				if(GameConst.crossTest(wof, this.arrow)){
+					wof.beHited();
+				}
+			}else if(this.type == 2){
 				if(GameConst.crossTest(wof, this)){
 					wof.beHited();
 				}

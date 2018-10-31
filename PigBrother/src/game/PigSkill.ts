@@ -1,7 +1,7 @@
 class PigSkill extends eui.Component{
 	skillOpen = false;
 	pig:Pig;
-	stone:eui.Image;
+	bone:eui.Image;
 	boom:eui.Image;
 	currentSkill = 0;
 	public constructor(pig:Pig) {
@@ -19,14 +19,14 @@ class PigSkill extends eui.Component{
 
 	createSkill(){
 		this.skillOpen = true;
-		this.stone.visible = true;
+		this.bone.visible = true;
 		var randSkill = Math.round(Math.random() + 1);
 		if(randSkill == 1){
-			this.stone.visible = true;
+			this.bone.visible = true;
 			this.boom.visible = false;
 		}else{
 			this.boom.visible = true;
-			this.stone.visible = false;
+			this.bone.visible = false;
 		}
 		this.currentSkill = randSkill;
 		egret.startTick(this.startTic, this);
@@ -37,7 +37,7 @@ class PigSkill extends eui.Component{
 			egret.stopTick(this.startTic, this);
 			this.pig.setSkill(this.currentSkill);
 			this.boom.visible = false;
-			this.stone.visible = false;
+			this.bone.visible = false;
 		}
 		return false;
 	}

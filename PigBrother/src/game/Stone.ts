@@ -3,6 +3,7 @@ class Stone extends egret.Bitmap {
 	posTemple:egret.Point;
 	posEnd:egret.Point;
 	gameControl:Game;
+	active=true;
 	public constructor(s) {
 		super(s);
 	}
@@ -32,10 +33,26 @@ class Stone extends egret.Bitmap {
 		egret.startTick(this.start, this);
 	}
 
-	start(dt){
-		if(this.gameControl.pig.hitTestPoint(this.x, this.y)){
+	hitTest(){
+		if((GameConst.crossTest(this.gameControl.pig.pigTop, this) 
+		|| GameConst.crossTest(this.gameControl.pig.pigBottom, this)) && this.active){
+			egret.Tween.removeTweens(this);
+			this.active = false;
+			egret.Tween.get(this).to({x:this.x - 50, y:this.y + 1000}, 2000).call(()=>{
+				this.parent.removeChild(this);
+				egret.stopTick(this.start, this);
+				this.active = true;
+				this.gameControl.stonesPool.push(this);
+			});
+
+		}else if(GameConst.crossTest(this.gameControl.pig.pig, this) && this.active){
+			this.active = false;
 			this.gameControl.pig.beHited();
-		}	
+		}
+	}
+
+	start(dt){
+		this.hitTest();
 		return false;
 	}
 }

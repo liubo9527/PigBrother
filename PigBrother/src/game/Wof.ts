@@ -2,7 +2,7 @@ class Wof extends eui.Component{
 	walk:eui.Image;
 	flyGroup:eui.Group;
 	fly:eui.Image;
-	ballute:eui.Image;
+	fall:eui.Image;
 	state:0;//0 walk 1 air
 	type;//1boss default 0 渣
 	walkSpeed = 120;
@@ -11,6 +11,12 @@ class Wof extends eui.Component{
 	randomLength:Number;
 	beKilled = false;
 	stone:Stone;//石头
+	ballute0:eui.Image;//不会攻击的狼
+	ballute1:eui.Image;//偶尔攻击的狼
+	ballute2:eui.Image;//一直攻击的狼
+	ballute:eui.Image;//当前气球
+	IntervalTimer;
+	timeoutTimer;
 	public constructor(type, gameControl) {
 		super();
 		this.skinName = "wof";
@@ -30,6 +36,21 @@ class Wof extends eui.Component{
 		this.y = - 60;
 		this.alpha = 1;
 		this.beKilled = false;
+		this.fly.visible = true;
+		this.fall.visible = false;
+		this.scaleY = 1;
+		//
+		var random = Math.round(Math.random()*10);
+		if(random <=3 ){//type1
+			this.type = 1;
+			this.ballute = this.ballute1;
+		}else if(random >=7){//type2
+			this.type = 2;
+			this.ballute = this.ballute2;
+		}else{//type0
+			this.type = 0;
+			this.ballute = this.ballute0;
+		}
 		this.autoMove();
 	}
 	setWofState(state){
@@ -43,6 +64,10 @@ class Wof extends eui.Component{
 		}else if(this.state == 1){
 			this.walk.visible = false;
 			this.flyGroup.visible = true;
+			this.ballute0.visible = false;
+			this.ballute1.visible = false;
+			this.ballute2.visible = false;
+			this.ballute.visible = true;
 		}
 	}
 
@@ -54,11 +79,16 @@ class Wof extends eui.Component{
 		var bottomTime =1000 * (1400 - randomTop) / this.walkSpeed;
 		egret.Tween.get(this).to({x:randomTop} ,topWalkTime).call(()=>{
 			this.setWofState(1);
-			var rand = Math.round(Math.random()*10);
-			if(rand > 6){
-				this.throwStone(flyTime);
+			if(this.type != 0){
+				var time = Math.random()*flyTime;
+				this.timeoutTimer = setTimeout(()=>{
+					this.throwStone();
+				}, time);
 			}
 		}).to({y:590} ,flyTime).call(()=>{
+			if(this.type == 2){
+				clearInterval(this.IntervalTimer);
+			}	
 			this.setWofState(0);
 		}).to({x:1400}, bottomTime).call(()=>{
 			var findIndex = this.gameControl.wofsArray.indexOf(this);
@@ -72,33 +102,48 @@ class Wof extends eui.Component{
 
 	beHited(){
 		egret.Tween.removeTweens(this);
+		clearInterval(this.IntervalTimer);
+		clearTimeout(this.timeoutTimer);
 		this.beKilled = true;
-		this.setWofState(0);
 		var findIndex = this.gameControl.wofsArray.indexOf(this);
 		this.gameControl.wofsArray.splice(findIndex, 1);
-		egret.Tween.get(this).to({y:1000, alpha:0} ,3000).call(()=>{
+		//气球爆炸
+		this.ballute.visible = false;
+		this.fly.visible = false;
+		this.fall.visible = true;
+		egret.Tween.get(this).to({scaleY:1}, 500).to({scaleY:-1, y:this.y + 200}, 0).to({y:1000, alpha:0} ,3000).call(()=>{
 			this.gameControl.wofsPool.push(this);
 			this.parent.removeChild(this);
 		});
 		this.gameControl.scoreCount++;
 		this.gameControl.updateScore();
+
+		//t
 	}
 
 	//狼向猪扔石头
-	throwStone(flyTime){
-		var time = Math.random()*flyTime;
-		setTimeout(()=>{
-			if(!this.beKilled && this.gameControl.stonesPool.length > 0){
-				this.stone = this.gameControl.stonesPool.pop();
-				var posStart = new egret.Point(this.x, this.y + 150);
-				var posEnd = new egret.Point(this.gameControl.pig.x + 85, this.gameControl.pig.y + 85);
-				var tempX = (posStart.x + posEnd.x) / 2;
-				var tempY = (posStart.y + posEnd.y) / 2 -100;
-				var posTemple = new egret.Point(tempX, tempY);
-				this.stone.setPos(posStart, posTemple, posEnd, this.gameControl);
-				this.parent.addChild(this.stone);
-				this.stone.throw();
-			}
-		}, time);
+	throwStone(){
+		if(this.type == 1){
+			this.throw();
+		}else if(this.type == 2){
+			this.IntervalTimer = setInterval(()=>{
+				this.throw();
+			}, 500);
+		}
+	}
+
+	throw(){
+		if(!this.beKilled && this.gameControl.stonesPool.length > 0){
+			this.stone = this.gameControl.stonesPool.pop();
+			var posStart = new egret.Point(this.x, this.y + 150);
+			var random = Math.random()*200 - 15;
+			var posEnd = new egret.Point(this.gameControl.pig.x + 85, this.gameControl.pig.y + random);
+			var tempX = (posStart.x + posEnd.x) / 2;
+			var tempY = (posStart.y + posEnd.y) / 2 -100;
+			var posTemple = new egret.Point(tempX, tempY);
+			this.stone.setPos(posStart, posTemple, posEnd, this.gameControl);
+			this.parent.addChild(this.stone);
+			this.stone.throw();
+		}
 	}
 }
