@@ -52,9 +52,9 @@
 
 
 	</e:Group>
-	<e:Group id="scoreGroup" width="600" height="400" x="331" y="206.52" visible="false" locked="true">
+	<e:Group id="scoreGroup" width="600" height="400" x="331" y="206.52">
 		<e:Rect width="600" height="400" x="0" y="0" fillColor="0xffb7b7"/>
-		<e:Label text="你死了" x="226" y="97.73" size="50"/>
+		<e:Label text="好了，你死了！" x="235" y="146.48" size="50" anchorOffsetX="74" anchorOffsetY="28"/>
 	</e:Group>
 	<e:Label id="score" text="杀了0匹狼" x="619.24" y="425.76" textColor="0xFCEE02" anchorOffsetX="59.09" anchorOffsetY="25.76" size="50" locked="true"/>
 

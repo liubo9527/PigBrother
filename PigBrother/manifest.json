@@ -10,23 +10,20 @@
 		"libs/modules/promise/promise.js"
 	],
 	"game": [
-		"bin-debug/game/Pig.js",
+		"bin-debug/game/Game.js",
 		"bin-debug/AssetAdapter.js",
 		"bin-debug/Main.js",
 		"bin-debug/Platform.js",
 		"bin-debug/ThemeAdapter.js",
 		"bin-debug/Data/GameData.js",
 		"bin-debug/game/Arrow.js",
-		"bin-debug/game/Game.js",
-		"bin-debug/game/GameConst.js",
 		"bin-debug/LoadingUI.js",
+		"bin-debug/game/GameConst.js",
+		"bin-debug/game/Pig.js",
 		"bin-debug/game/PigSkill.js",
 		"bin-debug/game/Stone.js",
 		"bin-debug/game/Wellcome.js",
 		"bin-debug/game/Wof.js",
-		"bin-debug/tool/Button.js",
-		"bin-debug/tool/sat/ConvxCal.js",
-		"bin-debug/tool/sat/SAT_SIMPLE.js",
-		"bin-debug/tool/sat/SAT.js"
+		"bin-debug/tool/Button.js"
 	]
 }
