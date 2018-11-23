@@ -1,35 +1,20 @@
 {
 	"groups": [
 		{
-			"keys": "background_png,pig_png,string_png,wolf1_png,arrow_png,ballute_png,wolf_png,stone_png,start_png,wellcome_png,boom_png",
+			"keys": "arrow_png,background_png,ballute_png,ballute1_png,ballute2_png,boom_png,pig_png,pigBottom_png,pigTop_png,start_png,stone_png,string_png,wellcome_png,wof-fall_png,wolf_png,wolf1_png,bone_png,pigFall_png,friendRank_png",
 			"name": "preload"
 		}
 	],
 	"resources": [
 		{
-			"url": "assets/background.png",
-			"type": "image",
-			"name": "background_png"
-		},
-		{
-			"url": "assets/pig.png",
-			"type": "image",
-			"name": "pig_png"
-		},
-		{
-			"url": "assets/string.png",
-			"type": "image",
-			"name": "string_png"
-		},
-		{
-			"url": "assets/wolf1.png",
-			"type": "image",
-			"name": "wolf1_png"
-		},
-		{
 			"url": "assets/arrow.png",
 			"type": "image",
 			"name": "arrow_png"
+		},
+		{
+			"url": "assets/background.png",
+			"type": "image",
+			"name": "background_png"
 		},
 		{
 			"url": "assets/ballute.png",
@@ -37,9 +22,39 @@
 			"name": "ballute_png"
 		},
 		{
-			"url": "assets/wolf.png",
+			"url": "assets/ballute1.png",
 			"type": "image",
-			"name": "wolf_png"
+			"name": "ballute1_png"
+		},
+		{
+			"url": "assets/ballute2.png",
+			"type": "image",
+			"name": "ballute2_png"
+		},
+		{
+			"url": "assets/boom.png",
+			"type": "image",
+			"name": "boom_png"
+		},
+		{
+			"url": "assets/pig.png",
+			"type": "image",
+			"name": "pig_png"
+		},
+		{
+			"url": "assets/pigBottom.png",
+			"type": "image",
+			"name": "pigBottom_png"
+		},
+		{
+			"url": "assets/pigTop.png",
+			"type": "image",
+			"name": "pigTop_png"
+		},
+		{
+			"url": "assets/start.png",
+			"type": "image",
+			"name": "start_png"
 		},
 		{
 			"url": "assets/stone.png",
@@ -47,19 +62,44 @@
 			"name": "stone_png"
 		},
 		{
-			"name": "start_png",
+			"url": "assets/string.png",
 			"type": "image",
-			"url": "assets/start.png"
+			"name": "string_png"
 		},
 		{
-			"name": "wellcome_png",
+			"url": "assets/wellcome.png",
 			"type": "image",
-			"url": "assets/wellcome.png"
+			"name": "wellcome_png"
 		},
 		{
-			"name": "boom_png",
+			"url": "assets/wof-fall.png",
 			"type": "image",
-			"url": "assets/boom.png"
+			"name": "wof-fall_png"
+		},
+		{
+			"url": "assets/wolf.png",
+			"type": "image",
+			"name": "wolf_png"
+		},
+		{
+			"url": "assets/wolf1.png",
+			"type": "image",
+			"name": "wolf1_png"
+		},
+		{
+			"name": "bone_png",
+			"type": "image",
+			"url": "assets/bone.png"
+		},
+		{
+			"name": "pigFall_png",
+			"type": "image",
+			"url": "assets/pigFall.png"
+		},
+		{
+			"name": "friendRank_png",
+			"type": "image",
+			"url": "assets/friendRank.png"
 		}
 	]
 }

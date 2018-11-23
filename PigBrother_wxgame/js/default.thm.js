@@ -14,11 +14,11 @@ var egret = window.egret;
 	__extends(arrow, _super);
 	function arrow() {
 		_super.call(this);
-		this.skinParts = ["arrow","stone","boom"];
+		this.skinParts = ["arrow","bone","boom"];
 		
 		this.height = 200;
 		this.width = 300;
-		this.elementsContent = [this.arrow_i(),this.stone_i(),this.boom_i()];
+		this.elementsContent = [this.arrow_i(),this.bone_i(),this.boom_i()];
 	}
 	var _proto = arrow.prototype;
 
@@ -27,20 +27,20 @@ var egret = window.egret;
 		this.arrow = t;
 		t.anchorOffsetX = 1;
 		t.anchorOffsetY = 15;
-		t.scaleX = 0.6;
-		t.scaleY = 0.6;
+		t.scaleX = 1;
+		t.scaleY = 1;
 		t.source = "arrow_png";
 		t.x = 0.6;
 		t.y = 100.6;
 		return t;
 	};
-	_proto.stone_i = function () {
+	_proto.bone_i = function () {
 		var t = new eui.Image();
-		this.stone = t;
-		t.source = "stone_png";
+		this.bone = t;
+		t.source = "bone_png";
 		t.visible = false;
-		t.x = 23.3;
-		t.y = 81;
+		t.x = -5.4;
+		t.y = 83.6;
 		return t;
 	};
 	_proto.boom_i = function () {
@@ -53,7 +53,7 @@ var egret = window.egret;
 		t.visible = false;
 		t.width = 220;
 		t.x = 0;
-		t.y = 11.6;
+		t.y = 15.6;
 		return t;
 	};
 	return arrow;
@@ -232,10 +232,12 @@ var egret = window.egret;
 	};
 	_proto._Label1_i = function () {
 		var t = new eui.Label();
+		t.anchorOffsetX = 74;
+		t.anchorOffsetY = 28;
 		t.size = 50;
-		t.text = "你死了";
-		t.x = 226;
-		t.y = 97.73;
+		t.text = "好了，你死了！";
+		t.x = 235;
+		t.y = 146.48;
 		return t;
 	};
 	_proto.score_i = function () {
@@ -255,19 +257,38 @@ var egret = window.egret;
 	__extends(pig, _super);
 	function pig() {
 		_super.call(this);
-		this.skinParts = [];
+		this.skinParts = ["pig","pigTop","pigBottom"];
 		
 		this.height = 170;
 		this.width = 170;
-		this.elementsContent = [this._Image1_i()];
+		this.elementsContent = [this.pig_i(),this.pigTop_i(),this.pigBottom_i()];
 	}
 	var _proto = pig.prototype;
 
-	_proto._Image1_i = function () {
+	_proto.pig_i = function () {
 		var t = new eui.Image();
+		this.pig = t;
+		t.anchorOffsetX = 0;
 		t.source = "pig_png";
-		t.x = 0;
-		t.y = 7;
+		t.width = 100;
+		t.x = 66;
+		t.y = 48;
+		return t;
+	};
+	_proto.pigTop_i = function () {
+		var t = new eui.Image();
+		this.pigTop = t;
+		t.source = "pigTop_png";
+		t.x = 43.5;
+		t.y = -7.5;
+		return t;
+	};
+	_proto.pigBottom_i = function () {
+		var t = new eui.Image();
+		this.pigBottom = t;
+		t.source = "pigBottom_png";
+		t.x = 47.5;
+		t.y = 120;
 		return t;
 	};
 	return pig;
@@ -275,21 +296,21 @@ var egret = window.egret;
 	__extends(pigSkill, _super);
 	function pigSkill() {
 		_super.call(this);
-		this.skinParts = ["stone","boom"];
+		this.skinParts = ["bone","boom"];
 		
 		this.height = 100;
 		this.width = 100;
-		this.elementsContent = [this.stone_i(),this.boom_i()];
+		this.elementsContent = [this.bone_i(),this.boom_i()];
 	}
 	var _proto = pigSkill.prototype;
 
-	_proto.stone_i = function () {
+	_proto.bone_i = function () {
 		var t = new eui.Image();
-		this.stone = t;
-		t.source = "stone_png";
+		this.bone = t;
+		t.source = "bone_png";
 		t.visible = false;
-		t.x = 25;
-		t.y = 31;
+		t.x = 12;
+		t.y = 38;
 		return t;
 	};
 	_proto.boom_i = function () {
@@ -330,11 +351,11 @@ var egret = window.egret;
 	__extends(wof, _super);
 	function wof() {
 		_super.call(this);
-		this.skinParts = ["walk","fly","ballute","flyGroup"];
+		this.skinParts = ["walk","fly","ballute0","ballute1","ballute2","flyGroup","fall"];
 		
 		this.height = 150;
 		this.width = 150;
-		this.elementsContent = [this.walk_i(),this.flyGroup_i()];
+		this.elementsContent = [this.walk_i(),this.flyGroup_i(),this.fall_i()];
 	}
 	var _proto = wof.prototype;
 
@@ -354,7 +375,7 @@ var egret = window.egret;
 		t.width = 150;
 		t.x = 0;
 		t.y = 0;
-		t.elementsContent = [this.fly_i(),this.ballute_i()];
+		t.elementsContent = [this.fly_i(),this.ballute0_i(),this.ballute1_i(),this.ballute2_i()];
 		return t;
 	};
 	_proto.fly_i = function () {
@@ -367,14 +388,51 @@ var egret = window.egret;
 		t.y = 74;
 		return t;
 	};
-	_proto.ballute_i = function () {
+	_proto.ballute0_i = function () {
 		var t = new eui.Image();
-		this.ballute = t;
+		this.ballute0 = t;
 		t.scaleX = 1;
 		t.scaleY = 1;
 		t.source = "ballute_png";
+		t.visible = false;
 		t.x = 48;
 		t.y = 22;
+		return t;
+	};
+	_proto.ballute1_i = function () {
+		var t = new eui.Image();
+		this.ballute1 = t;
+		t.anchorOffsetY = 0;
+		t.height = 78;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "ballute1_png";
+		t.visible = false;
+		t.x = 60;
+		t.y = 12;
+		return t;
+	};
+	_proto.ballute2_i = function () {
+		var t = new eui.Image();
+		this.ballute2 = t;
+		t.anchorOffsetX = 0;
+		t.anchorOffsetY = 0;
+		t.height = 81;
+		t.scaleX = 1;
+		t.scaleY = 1;
+		t.source = "ballute2_png";
+		t.visible = false;
+		t.width = 100;
+		t.x = 55;
+		t.y = 9;
+		return t;
+	};
+	_proto.fall_i = function () {
+		var t = new eui.Image();
+		this.fall = t;
+		t.source = "wof-fall_png";
+		t.x = 11.5;
+		t.y = 51;
 		return t;
 	};
 	return wof;

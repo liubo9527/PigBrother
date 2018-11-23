@@ -73,7 +73,7 @@ class Game extends eui.Component {
 	}
 
 	updateScore(){
-		this.score.text = "杀了"+ this.scoreCount+"匹狼"
+		this.score.text = "杀了"+ this.scoreCount+"匹狼";
 	}
 
 	gameOVer(){

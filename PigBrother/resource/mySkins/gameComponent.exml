@@ -52,7 +52,7 @@
 
 
 	</e:Group>
-	<e:Group id="scoreGroup" width="600" height="400" x="331" y="206.52">
+	<e:Group id="scoreGroup" width="600" height="400" x="331" y="206.52" visible="false">
 		<e:Rect width="600" height="400" x="0" y="0" fillColor="0xffb7b7"/>
 		<e:Label text="好了，你死了！" x="235" y="146.48" size="50" anchorOffsetX="74" anchorOffsetY="28"/>
 	</e:Group>

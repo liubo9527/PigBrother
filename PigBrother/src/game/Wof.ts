@@ -17,10 +17,22 @@ class Wof extends eui.Component{
 	ballute:eui.Image;//当前气球
 	IntervalTimer;
 	timeoutTimer;
-	public constructor(type, gameControl) {
+
+	//状态机
+	//wof WofFSM
+	public get wofState(){
+		return this.wofState;
+	}
+
+	public set wofState(state){
+		this.wofState = state;
+	}
+
+
+	public constructor(state:WofFSM, gameControl) {
 		super();
 		this.skinName = "wof";
-		this.type = type;
+		this.wofState = state;
 		this.gameControl = gameControl;
 	}
 	childrenCreated(){
@@ -53,6 +65,7 @@ class Wof extends eui.Component{
 		}
 		this.autoMove();
 	}
+
 	setWofState(state){
 		if(state == this.stage){
 			return ;
@@ -117,8 +130,10 @@ class Wof extends eui.Component{
 		});
 		this.gameControl.scoreCount++;
 		this.gameControl.updateScore();
+	}
 
-		//t
+	test(){
+		console.log("aaa");
 	}
 
 	//狼向猪扔石头
@@ -145,5 +160,27 @@ class Wof extends eui.Component{
 			this.parent.addChild(this.stone);
 			this.stone.throw();
 		}
+	}
+}
+
+abstract class WofFSM{
+	abstract handle(wof:Wof);
+}
+
+//攻击
+class WofAttack extends WofFSM{
+	handle(wof:Wof){
+		
+	}
+}
+//行走
+class WofWalk extends WofFSM{
+	handle(wof:Wof){
+	}
+}
+//飞行
+class WofFly extends WofFSM{
+	handle(wof:Wof){
+
 	}
 }
