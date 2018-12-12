@@ -50,10 +50,6 @@ class Arrow extends eui.Component {
 		super.childrenCreated();
 	}
 
-	get factor(){
-		return 0;
-	}
-
 	setPos(posStart, posTemple, posEnd){
 		this.posStart = posStart;
 		this.posTemple = posTemple;
