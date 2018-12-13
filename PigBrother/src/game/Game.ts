@@ -21,7 +21,7 @@ class Game extends eui.Component {
 
 	gameInit(){
 		for(var i =0; i < 10; i++){
-			var wof:Wof = new Wof(0, this);
+			var wof:Wof = new Wof(new WofWalk(), this);
 			this.wofsPool.push(wof);
 			//初始化石头pool
 			var stone:Stone = new Stone(RES.getRes("stone_png"));
@@ -59,7 +59,7 @@ class Game extends eui.Component {
 		if(this.wofsPool.length > 0){
 			wof = this.wofsPool.pop();
 		}else{
-			wof = new Wof(0, this);
+			wof = new Wof(new WofWalk(), this);
 		}
 		wof.setInit();
 		this.wofsArray.push(wof);	

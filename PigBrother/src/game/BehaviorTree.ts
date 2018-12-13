@@ -98,7 +98,7 @@ abstract class BehaviorNode{
 	}
 
 	/**
-	 * protected
+	 * protected 子类必须实现
 	 */
 	//转换
 	protected abstract _doTransition(behaviorInputParam):void;
@@ -354,7 +354,7 @@ abstract class BehaviorTerminalNode extends BehaviorNode{
 class BehaviorParallelNode extends BehaviorNode{
 	private _childNodeStatesList:Array<BehaviorRunningStatus> = [];
 	private _finishCondition:E_ParallelFinishCondition;
-	constructor(behaviorParentNode, behaviorNodePrecondition){
+	constructor(behaviorParentNode, behaviorNodePrecondition = null){
 		super(behaviorParentNode, behaviorNodePrecondition);
 		for(var i = 0; i < maxChildNumber; i++){
 			this._childNodeStatesList.push(BehaviorRunningStatus.k_BRS_Executing);
@@ -476,48 +476,53 @@ class BehaviorLoopNode extends BehaviorNode{
 	 }
 }
 
-enum BehaviorType{
-	TerminalNode = 0,
-	PrioritySelector,
-	NonePrioritySelector,
-	Sequence,
-	Loop,
-	Parallel,
-
-}
 class BehaviorNodeFactory{
-	static createBehaviorNode(type:BehaviorType, parent:BehaviorNode, predition:BehaviorNodePrecondition, debugName, _loopCount = null){
-		var behaviorNode:BehaviorNode;
-		switch (type){
-			case BehaviorType.TerminalNode:{
-				//behaviorNode = new BehaviorTerminalNode(parent, predition);
-				break;
-			}
-			case BehaviorType.PrioritySelector:{
-
-				break;
-			}
-			case BehaviorType.NonePrioritySelector:{
-
-				break;
-			}
-			case BehaviorType.Sequence:{
-
-				break;
-			}
-			case BehaviorType.Loop:{
-
-				break;
-			}
-			case BehaviorType.Parallel:{
-
-				break;
-			}
-			default:{
-				break;
-			}
-		}
+	//工厂模式 创建并行node
+	static createParallelBehaviorNode(parentBehaviorNode:BehaviorNode, parallelFinishCondition:E_ParallelFinishCondition, debugName:string){
+		var parallelBehaviorNode:BehaviorParallelNode = new BehaviorParallelNode(parentBehaviorNode);
+		parallelBehaviorNode.setFinishCondition(parallelFinishCondition);
+		this.behaviorNodeCommonSet(parallelBehaviorNode, parentBehaviorNode, debugName);
+		return parallelBehaviorNode;
 	}
+	
+	//有优先级的选择器
+	static createPriorityBehaviorNode(parentBehaviorNode:BehaviorNode, debugName:string):BehaviorNodePrioritySelector{
+		var priorityBehaviorNode:BehaviorNodePrioritySelector = new BehaviorNodePrioritySelector(parent);
+		this.behaviorNodeCommonSet(priorityBehaviorNode, parentBehaviorNode, debugName);
+		return priorityBehaviorNode;
+	}
+	//没有优先级的选择器
+	static createNonePriorityBehaviorNode(parentBehaviorNode:BehaviorNode, debugName:string):BehaviorNodeNonePrioritySelector{
+		var nonePriorityBehaviorNode:BehaviorNodePrioritySelector = new BehaviorNodeNonePrioritySelector(parentBehaviorNode);
+		this.behaviorNodeCommonSet(nonePriorityBehaviorNode, parentBehaviorNode, debugName);
+		return nonePriorityBehaviorNode;
+	}
+	//序列选择器
+	static createSquenceBehaviorNode(parentBehaviorNode:BehaviorNode, debugName:string):BehaviorNodeSequence{
+		var sequenceBehaviorNode:BehaviorNodeSequence = new BehaviorNodeSequence(parentBehaviorNode);
+		this.behaviorNodeCommonSet(sequenceBehaviorNode, parentBehaviorNode, debugName);
+		return sequenceBehaviorNode;
+	}
+	//循环选择器
+	static createLoopBehaviorNode(parentBehaviorNode:BehaviorNode, debugName, loopCount):BehaviorLoopNode{
+		var behaviorLoopNode:BehaviorLoopNode = new BehaviorLoopNode(parentBehaviorNode, loopCount);
+		this.behaviorNodeCommonSet(behaviorLoopNode, parentBehaviorNode, debugName);
+		return behaviorLoopNode;
+	}
+	//末端节点
+	static createTerminalBehaviorNode(className:string, parentBehaviorNode:BehaviorNode, debugName){
+		var TerminalClass = egret.getDefinitionByName(className);
+		var terminnalBehaviorNode = new TerminalClass(parentBehaviorNode);
+		this.behaviorNodeCommonSet(terminnalBehaviorNode, parentBehaviorNode, debugName);
+		return terminnalBehaviorNode;
+	}
+
+	private static behaviorNodeCommonSet(behaviorNode:BehaviorNode, parentBehaviorNode:BehaviorNode, debugName){
+		if(parentBehaviorNode!= null){
+			parentBehaviorNode.addChilBehaviordNode(behaviorNode);
+			behaviorNode.debugName = debugName;
+		}
+	}		
 }
 
 
