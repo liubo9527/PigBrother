@@ -83,5 +83,7 @@ class Game extends eui.Component {
 	reStart(){
 		this.parent.addChild(new Game());
 		this.parent.removeChild(this);	
+		
+		//========
 	}
 }
